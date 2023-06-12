@@ -15,13 +15,16 @@ for line in import_input_data:
 
 # perform calculations
 
-increase_count = 0
-current_data = sonar_data[0]
-for measurement in sonar_data:
-    if measurement > current_data:
-        increase_count += 1
-    current_data = measurement
+def get_increase_count(data):
+    increase_count = 0
+    current_data = data[0]
+    for measurement in data:
+        if measurement > current_data:
+            increase_count += 1
+        current_data = measurement
+    return increase_count
 
 # output result
 
-print("Number of times the depth measurement increases:", increase_count)
+print("Number of times the depth measurement increases:", get_increase_count(sonar_data))
+
