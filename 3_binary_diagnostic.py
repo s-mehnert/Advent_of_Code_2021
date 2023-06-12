@@ -88,3 +88,9 @@ def filter_binary_list_for_least_common(array):
 co2_scrubber_rating = filter_binary_list_for_least_common(import_input_data)
 
 print(co2_scrubber_rating)
+
+# calculate life support rating
+
+life_support_rating = int(oxygen_generator_rating, 2) * int(co2_scrubber_rating, 2)
+
+print(life_support_rating)
