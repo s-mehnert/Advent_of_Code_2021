@@ -28,3 +28,17 @@ def get_increase_count(data):
 
 print("Number of times the depth measurement increases:", get_increase_count(sonar_data))
 
+
+#****************** Part  *****
+
+# adapt input
+
+increase_count_2 = 0
+sets_of_three_measurements = list()
+for i in range(len(sonar_data)-2):
+    sets_of_three_measurements.append(sum(sonar_data[i:i+3]))
+
+# output result
+
+print("Number of times the depth measurement increases:", get_increase_count(sets_of_three_measurements))
+
