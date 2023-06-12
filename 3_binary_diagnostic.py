@@ -27,3 +27,7 @@ for i in range(len(import_input_data[0])):
     else:
         gamma_rate += "1"
 
+# calculate epsilon rate
+
+epsilon_rate = "".join(["0" if binary == "1" else "1" for binary in gamma_rate])
+
