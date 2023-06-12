@@ -70,3 +70,21 @@ def filter_binary_list_for_most_common(array):
 oxygen_generator_rating = filter_binary_list_for_most_common(import_input_data)
 
 print(oxygen_generator_rating)
+
+# reverse functions for calculation of CO2 scrubber rating
+
+def filter_binary_list_for_least_common(array):
+    for i in range(len(array[0])):
+        if len(array) == 1:
+            return array[0]
+        keep = find_most_common_bit(array, i+1)
+        if keep == "1":
+            keep = "0"
+        else:
+            keep = "1"
+        array = [binary for binary in array if binary[i] == keep]
+    return array[0]
+
+co2_scrubber_rating = filter_binary_list_for_least_common(import_input_data)
+
+print(co2_scrubber_rating)
