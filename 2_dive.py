@@ -17,4 +17,20 @@ for instr in import_input_data:
 
 # perform calculation
 
+submarine_pos = [0, 0]
+for instr in instructions:
+    if instr[0] == "f":
+        submarine_pos[0] += instr[1]
+    elif instr[0] == "d":
+        submarine_pos[1] += instr[1]
+    elif instr[0] == "u":
+        submarine_pos[1] -= instr[1]
+    else:
+        print("Sorry, cannot carry out instruction")
+
+result = submarine_pos[0] * submarine_pos[1]
+
+# output result
+
+print(f"\nThe new submarine position is {submarine_pos} and the resulting calculation is {result}.\n")
 
