@@ -35,3 +35,7 @@ print(back_comp_value)
 median = (front_comp_value + back_comp_value) // 2
 
 print("All crab submarines need to move to position:", median)
+
+fuel_needed = sum([abs(position - median) for position in crab_subs_positions])
+
+print("The total fuel cost amounts to:", fuel_needed)
