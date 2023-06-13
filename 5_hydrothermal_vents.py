@@ -17,7 +17,7 @@ vent_lines = [[tuple([int(xy) for xy in coord]) for coord in vent] for vent in v
 
 # create grid
 
-grid = [[(x, y) for x in range(1000)] for y in range(1000)]
+grid = [[(x, y) for x in range(10)] for y in range(10)]
 
 playing_grid = [["." for coord in row] for row in grid]
 
@@ -26,6 +26,10 @@ def print_grid(grid):
         print()
         for coord in row:
             print(coord, end=" ")
+
+
+#****************** Part 2 *****
+
 
 # mark vent lines in grid
 
@@ -54,8 +58,36 @@ def mark_vents(vent_line, grid):
                 print("Overlapping vent lines found")
                 num = int(grid[i][start_x])
                 grid[i][start_x] = str(num + 1)
+    elif abs(start_x - end_x) == abs(start_y - end_y):
+        print("Diagonal vent line found.")
+        end_diag_x = end_x
+        start_diag_y = start_y
+        end_diag_y = end_y
+        start_diag_x = min(start_x, end_x) 
+        if start_diag_x == end_x:
+            end_diag_x = start_x
+            end_diag_y, start_diag_y = start_y, end_diag_y
+        print("New arrangement:", start_diag_x, start_diag_y, " -> ", end_diag_x, end_diag_y)
+        if end_diag_y > start_diag_y:
+            for i in range(end_diag_x - start_diag_x + 1):
+                if grid[i + start_diag_y][i + start_diag_x] == ".":
+                    print("New vent found")
+                    grid[i + start_diag_y][i + start_diag_x] = "1"
+                else:
+                    print("Overlapping vent lines found")
+                    num = int(grid[i + start_diag_y][i + start_diag_x])
+                    grid[i + start_diag_y][i + start_diag_x] = str(num + 1)
+        else:
+            for i in range(end_diag_x - start_diag_x + 1):
+                if grid[start_diag_y-i][start_diag_x+i] == ".":
+                    print("New vent found")
+                    grid[start_diag_y-i][start_diag_x+i] = "1"
+                else:
+                    print("Overlapping vent lines found")
+                    num = int(grid[start_diag_y-i][start_diag_x+i])
+                    grid[start_diag_y-i][start_diag_x+i] = str(num + 1)
     else:
-        print("Diagonal vent line found. Skipping...")
+        print("Broken vent line found. Skipping...")
     return grid
 
 # mark vent lines in grid
@@ -64,6 +96,8 @@ print()
 for vent_line in vent_lines:
     print(vent_line)
     mark_vents(vent_line, playing_grid)
+    print()
+    print_grid(playing_grid)
 
 print()
 print_grid(playing_grid)
