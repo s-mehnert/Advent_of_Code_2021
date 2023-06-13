@@ -64,8 +64,18 @@ def print_board(board):
     for row in board:
         print(row)
 
+def get_score(board, last_num):
+    points = 0
+    for row in board:
+        for num in row:
+            if num > 0:
+                points += num
+    return points * last_num
+
+
 last_number_drawn = None
 winning_board = None
+winning_score = None
 
 for num in bingo_numbers:
     print("\nNumber drawn:", num, "\n")
@@ -74,6 +84,7 @@ for num in bingo_numbers:
         if check_bingo(board) is True:
             last_number_drawn = num
             winning_board = board
+            winning_score = get_score(winning_board, last_number_drawn)
             break
     else:
         continue
@@ -82,6 +93,7 @@ for num in bingo_numbers:
 print("\nWinning board:\n")
 print_board(winning_board)
 print("\nLast number drawn:", last_number_drawn)
+print("\nThe winning score is:", winning_score)
 print()
 
 
