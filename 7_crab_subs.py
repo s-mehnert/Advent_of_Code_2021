@@ -40,14 +40,14 @@ while back_idx >= middle_idx:
 
 #****************** Part 2 *****
 
-median = round(sum(test_positions) / len(test_positions))
+median = sum(crab_subs_positions) // len(crab_subs_positions)
 print(median)
 
 print("All crab submarines need to move to position:", median)
 
 fuel_needed = 0
 
-for position in test_positions:
+for position in crab_subs_positions:
     fuel = 0
     for i in range(abs(position-median)):
         fuel += i+1
