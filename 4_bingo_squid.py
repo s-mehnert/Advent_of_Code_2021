@@ -1,5 +1,5 @@
 #***** ADVENT OF CODE 2021 *****
-#************ DAY 3 ************
+#************ DAY 4 ************
 #****************** Part 1 *****
 
 
@@ -43,7 +43,6 @@ def mark_drawn_number(drawn_num, board):
         for num in range(len(board[0])):
             if board[row][num] == drawn_num:
                 board[row][num] = -1
-    print_board(board)
     return board
 
 
@@ -84,30 +83,26 @@ copy_of_bingo_boards = bingo_boards.copy()
 
 for num in bingo_numbers:
     print("\nNumber drawn:", num, "\n")
-    board_to_be_removed = None
+    boards_to_be_removed = list()
     for board in copy_of_bingo_boards:
         mark_drawn_number(num, board)
         last_number_drawn = num
         winning_board = board
         winning_score = get_score(winning_board, last_number_drawn)
         if check_bingo(board) is True:
-            board_to_be_removed = board
-    if board_to_be_removed:
-        copy_of_bingo_boards.remove(board_to_be_removed)
+            boards_to_be_removed.append(board)
+    for board in boards_to_be_removed:
+        copy_of_bingo_boards.remove(board)
     if not copy_of_bingo_boards:
+        print("No more boards to check.")
         break
             
-                
-    
-    
+   
 print("\nWinning board:\n")
 print_board(winning_board)
 print("\nLast number drawn:", last_number_drawn)
 print("\nThe winning score is:", winning_score)
 print()
-
-
-#****************** Part 2 *****
 
 
 
