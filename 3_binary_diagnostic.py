@@ -37,7 +37,7 @@ result = int(gamma_rate, 2) * int(epsilon_rate, 2)
 print(result)
 
 
-#****************** Part 1 *****
+#****************** Part 2 *****
 
 
 # determine most common bit
