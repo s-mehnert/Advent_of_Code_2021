@@ -15,12 +15,9 @@ with open("5_hydrothermal_vents_input.txt") as input:
 vent_lines = [[coord.split(",") for coord in line] for line in import_input_data]
 vent_lines = [[tuple([int(xy) for xy in coord]) for coord in vent] for vent in vent_lines]
 
-for line in vent_lines:
-    print(line)
-
 # create grid
 
-grid = [[(x, y) for x in range(10)] for y in range(10)]
+grid = [[(x, y) for x in range(1000)] for y in range(1000)]
 
 playing_grid = [["." for coord in row] for row in grid]
 
@@ -29,11 +26,6 @@ def print_grid(grid):
         print()
         for coord in row:
             print(coord, end=" ")
-
-print()
-print_grid(playing_grid)
-print()
-print_grid(grid)
 
 # mark vent lines in grid
 
@@ -66,8 +58,25 @@ def mark_vents(vent_line, grid):
         print("Diagonal vent line found. Skipping...")
     return grid
 
+# mark vent lines in grid
+
 print()
 for vent_line in vent_lines:
     print(vent_line)
     mark_vents(vent_line, playing_grid)
-    print_grid(playing_grid)
+
+print()
+print_grid(playing_grid)
+
+# find extra dangerous coordinates
+
+extra_danger_count = 0
+
+print()
+for row in playing_grid:
+    for coord in row:
+        if coord not in [".", "1"]:
+            extra_danger_count += 1
+
+print()
+print("Danger count:", extra_danger_count)
