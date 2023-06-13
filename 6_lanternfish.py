@@ -39,11 +39,30 @@ def reproduce(fish, duration):
             flock += reproduce(6, duration)
     return flock
 
+def reproduce_recursive(fish, duration, flock=1):
+    if duration == 0:
+        return flock
+    duration += (6-fish)
+    flock += duration // 7
+    duration -= 7
+    print(f"\nFish {fish} reproduces {flock-1} times. New flock count: {flock} - Remaining time to reproduce for future generations of fish: {duration}")
+    while duration > 7:
+        duration -= 2
+        num = duration // 7
+        flock += num
+        duration -= 6
+        print(f"\nThe new fish reproduces as well. New flock count: {flock} - Remaining duration {duration}")
+        if num > 1:
+            duration -= 2
+            return flock + reproduce(6, duration)
+    return flock
+
+
 test_fish_list = [Lanternfish(fish) for fish in test_list]
-duration = 18
+duration = 80
 total_fish_count = 0
 for fish in test_fish_list:
-    fish_count = reproduce(fish.internal_timer, duration)
+    fish_count = reproduce_recursive(fish.internal_timer, duration)
     total_fish_count += fish_count
 print()
 print(total_fish_count)
