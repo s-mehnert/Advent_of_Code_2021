@@ -43,6 +43,7 @@ def mark_drawn_number(drawn_num, board):
         for num in range(len(board[0])):
             if board[row][num] == drawn_num:
                 board[row][num] = -1
+    print_board(board)
     return board
 
 
@@ -61,6 +62,7 @@ def check_bingo(board):
     return cols
 
 def print_board(board):
+    print()
     for row in board:
         print(row)
 
@@ -73,28 +75,40 @@ def get_score(board, last_num):
     return points * last_num
 
 
+#****************** Part 2 *****
+
 last_number_drawn = None
 winning_board = None
 winning_score = None
+copy_of_bingo_boards = bingo_boards.copy()
 
 for num in bingo_numbers:
     print("\nNumber drawn:", num, "\n")
-    for board in bingo_boards:
-        print(mark_drawn_number(num, board))
+    board_to_be_removed = None
+    for board in copy_of_bingo_boards:
+        mark_drawn_number(num, board)
+        last_number_drawn = num
+        winning_board = board
+        winning_score = get_score(winning_board, last_number_drawn)
         if check_bingo(board) is True:
-            last_number_drawn = num
-            winning_board = board
-            winning_score = get_score(winning_board, last_number_drawn)
-            break
-    else:
-        continue
-    break
-
+            board_to_be_removed = board
+    if board_to_be_removed:
+        copy_of_bingo_boards.remove(board_to_be_removed)
+    if not copy_of_bingo_boards:
+        break
+            
+                
+    
+    
 print("\nWinning board:\n")
 print_board(winning_board)
 print("\nLast number drawn:", last_number_drawn)
 print("\nThe winning score is:", winning_score)
 print()
+
+
+#****************** Part 2 *****
+
 
 
 # Testing
