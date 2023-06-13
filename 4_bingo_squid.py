@@ -38,9 +38,6 @@ for i in range(len(import_board_data)):
 
 # play game
 
-for num in bingo_numbers:
-    continue
-
 def mark_drawn_number(drawn_num, board):
     for row in range(len(board)):
         for num in range(len(board[0])):
@@ -55,13 +52,33 @@ def check_bingo(board):
     for row in board:
         if sum(row) == -5:
             print("Bingo")
+            return True
         for i in range(len(board)):
             cols[i].append(row[i])
     for col in cols:
         if sum(col) == -5:
             print("Bingo")
+            return True
     return cols
-    
+
+
+last_number_drawn = None
+winning_board = None
+
+for num in bingo_numbers:
+    for board in bingo_boards:
+        print(mark_drawn_number(num, board))
+        if check_bingo(board) is True:
+            last_number_drawn = num
+            winning_board = board
+            break
+    else:
+        continue
+    break
+
+print("Winning board:", winning_board)
+print("Last number drawn:", last_number_drawn)
+
 
 # Testing
 
@@ -70,6 +87,3 @@ for board in bingo_boards:
     print()
     for line in board:
         print(line)
-
-for board in bingo_boards:
-    print(mark_drawn_number(7, board))
