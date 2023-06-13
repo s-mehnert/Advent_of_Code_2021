@@ -41,6 +41,15 @@ for i in range(len(import_board_data)):
 for num in bingo_numbers:
     continue
 
+def mark_drawn_number(drawn_num, board):
+    for row in range(len(board)):
+        for num in range(len(board[0])):
+            if board[row][num] == drawn_num:
+                print("num found")
+                board[row][num] = -1
+    return board
+
+
 def check_bingo(board):
     cols = [[] for i in range(len(board))]
     for row in board:
@@ -57,12 +66,10 @@ def check_bingo(board):
 # Testing
 
 print(bingo_boards)
-
-print(bingo_boards)
 for board in bingo_boards:
     print()
     for line in board:
         print(line)
 
 for board in bingo_boards:
-    print(check_bingo(board))
+    print(mark_drawn_number(7, board))
