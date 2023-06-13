@@ -22,26 +22,30 @@ class Lanternfish:
 
 #****************** Part 2 *****
 
-    # fix this - count wrong
-    def reproduce(self, duration):
-        duration -= self.internal_timer
-        self.flock += duration // 6
-        print(f"Fish {self.internal_timer} reproduces {self.flock-1} times. New flock count: {self.flock} - Remaining duration {duration}")
-        while duration > 6:
-            duration -= 8
-            self.flock += duration // 6
-            print(f"The new fish reproduces as well. New flock count: {self.flock} - Remaining duration: {duration}")
-
+def reproduce(fish, duration):
+    flock = 1
+    duration += (6-fish)
+    flock += duration // 7
+    duration -= 7
+    print(f"\nFish {fish} reproduces {flock-1} times. New flock count: {flock} - Remaining time to reproduce for future generations of fish: {duration}")
+    while duration > 7:
+        duration -= 2
+        num = duration // 7
+        flock += num
+        duration -= 6
+        print(f"\nThe new fish reproduces as well. New flock count: {flock} - Remaining duration {duration}")
+        if num > 1:
+            duration -= 2
+            flock += reproduce(6, duration)
+    return flock
 
 test_fish_list = [Lanternfish(fish) for fish in test_list]
 duration = 18
 total_fish_count = 0
 for fish in test_fish_list:
-    print("Fish:", fish.internal_timer, " --> Flock:", fish.flock)
-    fish.reproduce(duration)
-    print("New flock count:", fish.flock)
-    total_fish_count += fish.flock
-
+    fish_count = reproduce(fish.internal_timer, duration)
+    total_fish_count += fish_count
+print()
 print(total_fish_count)
     
 
