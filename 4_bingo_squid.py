@@ -42,7 +42,6 @@ def mark_drawn_number(drawn_num, board):
     for row in range(len(board)):
         for num in range(len(board[0])):
             if board[row][num] == drawn_num:
-                print("num found")
                 board[row][num] = -1
     return board
 
@@ -51,21 +50,25 @@ def check_bingo(board):
     cols = [[] for i in range(len(board))]
     for row in board:
         if sum(row) == -5:
-            print("Bingo")
+            print("\n***** B I N G O *****")
             return True
         for i in range(len(board)):
             cols[i].append(row[i])
     for col in cols:
         if sum(col) == -5:
-            print("Bingo")
+            print("\n***** B I N G O *****")
             return True
     return cols
 
+def print_board(board):
+    for row in board:
+        print(row)
 
 last_number_drawn = None
 winning_board = None
 
 for num in bingo_numbers:
+    print("\nNumber drawn:", num, "\n")
     for board in bingo_boards:
         print(mark_drawn_number(num, board))
         if check_bingo(board) is True:
@@ -76,14 +79,16 @@ for num in bingo_numbers:
         continue
     break
 
-print("Winning board:", winning_board)
-print("Last number drawn:", last_number_drawn)
+print("\nWinning board:\n")
+print_board(winning_board)
+print("\nLast number drawn:", last_number_drawn)
+print()
 
 
 # Testing
 
-print(bingo_boards)
-for board in bingo_boards:
-    print()
-    for line in board:
-        print(line)
+#print(bingo_boards)
+#for board in bingo_boards:
+#    print()
+#    for line in board:
+#        print(line)
