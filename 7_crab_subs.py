@@ -29,14 +29,28 @@ while back_idx >= middle_idx:
     back_comp_value = (back_comp_value + crab_subs_positions[back_idx]) // 2
     back_idx -= 1
 
-print()
-print(front_comp_value)
-print(back_comp_value)
+#median = (front_comp_value + back_comp_value) // 2
 
-median = (front_comp_value + back_comp_value) // 2
+#print("All crab submarines need to move to position:", median)
+
+#fuel_needed = sum([abs(position - median) for position in crab_subs_positions])
+
+#print("The total fuel cost amounts to:", fuel_needed)
+
+
+#****************** Part 2 *****
+
+median = round(sum(test_positions) / len(test_positions))
+print(median)
 
 print("All crab submarines need to move to position:", median)
 
-fuel_needed = sum([abs(position - median) for position in crab_subs_positions])
+fuel_needed = 0
+
+for position in test_positions:
+    fuel = 0
+    for i in range(abs(position-median)):
+        fuel += i+1
+    fuel_needed += fuel
 
 print("The total fuel cost amounts to:", fuel_needed)
