@@ -22,7 +22,7 @@ for line in vent_lines:
 
 grid = [[(x, y) for x in range(10)] for y in range(10)]
 
-playing_grid = [[". " for coord in row] for row in grid]
+playing_grid = [["." for coord in row] for row in grid]
 
 def print_grid(grid):
     for row in grid:
@@ -30,5 +30,44 @@ def print_grid(grid):
         for coord in row:
             print(coord, end=" ")
 
+print()
 print_grid(playing_grid)
+print()
+print_grid(grid)
 
+# mark vent lines in grid
+
+def mark_vents(vent_line, grid):
+    start_x = vent_line[0][0]
+    end_x = vent_line[1][0]
+    start_y = vent_line[0][1]
+    end_y = vent_line[1][1]
+    if start_y == end_y:
+        print("Horizontal vent line found")
+        for i in range(min(start_x, end_x), max(start_x, end_x)+1):
+            if grid[start_y][i] == ".":
+                print("New vent found")
+                grid[start_y][i] = "1"
+            else:
+                print("Overlapping vent lines found")
+                num = int(grid[start_y][i])
+                grid[start_y][i] = str(num + 1)
+    elif start_x == end_x:
+        print("Vertical vent line found")
+        for i in range(min(start_y, end_y), max(start_y, end_y)+1):
+            if grid[i][start_x] == ".":
+                print("New vent found")
+                grid[i][start_x] = "1"
+            else:
+                print("Overlapping vent lines found")
+                num = int(grid[i][start_x])
+                grid[i][start_x] = str(num + 1)
+    else:
+        print("Diagonal vent line found. Skipping...")
+    return grid
+
+print()
+for vent_line in vent_lines:
+    print(vent_line)
+    mark_vents(vent_line, playing_grid)
+    print_grid(playing_grid)
