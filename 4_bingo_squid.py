@@ -36,10 +36,33 @@ for i in range(len(import_board_data)):
         temp_board = list()
     
 
+# play game
+
+for num in bingo_numbers:
+    continue
+
+def check_bingo(board):
+    cols = [[] for i in range(len(board))]
+    for row in board:
+        if sum(row) == -5:
+            print("Bingo")
+        for i in range(len(board)):
+            cols[i].append(row[i])
+    for col in cols:
+        if sum(col) == -5:
+            print("Bingo")
+    return cols
+    
+
 # Testing
+
+print(bingo_boards)
 
 print(bingo_boards)
 for board in bingo_boards:
     print()
     for line in board:
         print(line)
+
+for board in bingo_boards:
+    print(check_bingo(board))
