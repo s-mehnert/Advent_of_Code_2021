@@ -18,5 +18,17 @@ vent_lines = [[tuple([int(xy) for xy in coord]) for coord in vent] for vent in v
 for line in vent_lines:
     print(line)
 
+# create grid
 
+grid = [[(x, y) for x in range(10)] for y in range(10)]
+
+playing_grid = [[". " for coord in row] for row in grid]
+
+def print_grid(grid):
+    for row in grid:
+        print()
+        for coord in row:
+            print(coord, end=" ")
+
+print_grid(playing_grid)
 
