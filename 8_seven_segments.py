@@ -172,4 +172,11 @@ def decode(output, dictionary):
 
 # Testing
 
-print(decode(output_sorted[0], list_of_inverted_digit_dicts[0]))
+total = 0
+print()
+for i in range(len(output_sorted)):
+    value = decode(output_sorted[i], list_of_inverted_digit_dicts[i])
+    print(value)
+    total += int(value)
+
+print("The total is:", total)
