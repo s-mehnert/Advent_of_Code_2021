@@ -121,6 +121,14 @@ for digit in remaining_digits:
     else:
         digit_dict[6] = digit
 
-for key, value in sorted(digit_dict.items()):
+print()
+for key, value in digit_dict.items():
     print(key, " --> ", value)
 
+# invert digit_dict
+
+inverted_dict = dict(map(reversed, sorted(digit_dict.items())))
+
+print()
+for key, value in inverted_dict.items():
+    print(key, " --> ", value)
