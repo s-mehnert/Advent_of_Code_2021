@@ -38,7 +38,7 @@ for output in output_digits:
         if len(digit) in [2, 3, 4, 7]:
             unique_digit_count += 1
 
-#print("Unique digit count:", unique_digit_count)
+print("Unique digit count:", unique_digit_count)
 
 
 
@@ -137,20 +137,6 @@ list_of_digit_dicts = list()
 for input in input_sorted:
     list_of_digit_dicts.append(decipher(input))
 
-print()
-#compare_dict = decipher(input_digits[2])
-#print()
-#print(input_digits[3])
-#print()
-#test_dict = decipher(input_digits[3])
-
-
-print()
-for dict in list_of_digit_dicts:
-    print()
-    for key, value in dict.items():
-        print(key, " --> ", value)
-
 # invert digit_dict
 
 list_of_inverted_digit_dicts = list()
@@ -158,9 +144,6 @@ list_of_inverted_digit_dicts = list()
 for dictionary in list_of_digit_dicts:
     inverted_dict = {value : key for key, value in dictionary.items()}
     list_of_inverted_digit_dicts.append(inverted_dict)
-
-for entry in list_of_inverted_digit_dicts:
-    print(entry)
 
 # decode outputs
 
@@ -176,7 +159,6 @@ total = 0
 print()
 for i in range(len(output_sorted)):
     value = decode(output_sorted[i], list_of_inverted_digit_dicts[i])
-    print(value)
     total += int(value)
 
 print("The total is:", total)
