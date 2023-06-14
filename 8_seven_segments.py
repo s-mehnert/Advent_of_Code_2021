@@ -144,5 +144,15 @@ for dict in list_of_digit_dicts:
 
 # invert digit_dict
 
+list_of_inverted_digit_dicts = list()
+
+for dictionary in list_of_digit_dicts:
+    inverted_dict = {value : key for key, value in dictionary.items()}
+    list_of_inverted_digit_dicts.append(inverted_dict)
+
+for entry in list_of_inverted_digit_dicts:
+    print(entry)
+
+
 
 # Testing
