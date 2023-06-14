@@ -15,16 +15,17 @@ output_digits = [entry[1].split() for entry in import_input_data]
 input_digits = [entry[0].split() for entry in import_input_data]
 
 for entry in input_digits:
-    for digit in entry:
-        digit = "".join(sorted(digit))
-        print(digit)
     entry.sort(key=len)
 
+input_sorted = [["".join(sorted(digit)) for digit in entry] for entry in input_digits]
+output_sorted = [["".join(sorted(digit)) for digit in entry] for entry in output_digits]
+
+
 print()
-for input in input_digits:
+for input in input_sorted:
     print(input)
 print()
-for output in output_digits:
+for output in output_sorted:
     print(output)
 print()
 
@@ -130,12 +131,10 @@ def decipher(input_digit):
             digit_dict[9] = digit
         else:
             digit_dict[6] = digit
-    print(len(digit_dict), digit_dict)
-    print(position_dict)
     return digit_dict
 
 list_of_digit_dicts = list()
-for input in input_digits:
+for input in input_sorted:
     list_of_digit_dicts.append(decipher(input))
 
 print()
@@ -165,17 +164,12 @@ for entry in list_of_inverted_digit_dicts:
 
 # decode outputs
 
-#def decode(output, dictionary):
-#    value = ""
-#    for digit in output:
-#        digit = "".join(sorted(digit))
-#        print(digit)
-#        value += str(dictionary[digit])
-#    return value
+def decode(output, dictionary):
+    value = ""
+    for digit in output:
+        value += str(dictionary[digit])
+    return value
 
 # Testing
 
-test_string = "gdabf"
-print("".join(sorted(test_string)))
-
-#print(decode(output_digits[0], list_of_inverted_digit_dicts[0]))
+print(decode(output_sorted[0], list_of_inverted_digit_dicts[0]))
