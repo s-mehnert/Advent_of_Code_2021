@@ -21,4 +21,13 @@ print(output_digits)
 for output in output_digits:
     print(output)
 
+# find unique digits
 
+unique_digit_count = 0 
+
+for output in output_digits:
+    for digit in output:
+        if len(digit) in [2, 3, 4, 7]:
+            unique_digit_count += 1
+
+print("Unique digit count:", unique_digit_count)
