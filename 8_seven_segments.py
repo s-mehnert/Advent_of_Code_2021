@@ -15,8 +15,18 @@ output_digits = [entry[1].split() for entry in import_input_data]
 input_digits = [entry[0].split() for entry in import_input_data]
 
 for entry in input_digits:
+    for digit in entry:
+        digit = "".join(sorted(digit))
+        print(digit)
     entry.sort(key=len)
-    print(entry)
+
+print()
+for input in input_digits:
+    print(input)
+print()
+for output in output_digits:
+    print(output)
+print()
 
 # find unique digits
 
@@ -153,6 +163,19 @@ for dictionary in list_of_digit_dicts:
 for entry in list_of_inverted_digit_dicts:
     print(entry)
 
+# decode outputs
 
+#def decode(output, dictionary):
+#    value = ""
+#    for digit in output:
+#        digit = "".join(sorted(digit))
+#        print(digit)
+#        value += str(dictionary[digit])
+#    return value
 
 # Testing
+
+test_string = "gdabf"
+print("".join(sorted(test_string)))
+
+#print(decode(output_digits[0], list_of_inverted_digit_dicts[0]))
