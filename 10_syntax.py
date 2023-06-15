@@ -25,7 +25,6 @@ def check_for_corrupted_lines(chunk_list):
         elif check_stack[-1] + char in pairs:
             check_stack.pop()
         else:
-            print("Line corrupted. Wrong closing bracket found:", char)
             return char
     
 # find corrupted lines
@@ -36,7 +35,7 @@ for line in import_input_data:
     errors_found.append(check_for_corrupted_lines(line))
 
 final_errors = [error for error in errors_found if error]
-print(final_errors)
+print("\nList of errors found:", final_errors)
 
 # count syntax errors
 
@@ -45,7 +44,7 @@ count_dict = {")": 0, "]": 0, "}": 0, ">": 0}
 for error in final_errors:
         count_dict[error] = final_errors.count(error)
 
-print(count_dict)
+print("\nCount of errors:", count_dict)
 
 # find score
 
@@ -57,7 +56,7 @@ for key, value in count_dict.items():
     if value > 0:
         total_syntax_error_score += value * scores[key]
 
-print()
-print("Total syntax error score:", total_syntax_error_score)
+print("\nTotal syntax error score:", total_syntax_error_score)
 
     
+# Next: test with real data
