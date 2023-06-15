@@ -70,24 +70,41 @@ for i in range(len(matrix)):
                 matrix[i][j].add_neighbor(matrix[i+1][j-1])
         if i > 0:
             matrix[i][j].add_neighbor(matrix[i-1][j])
+            if j < len(matrix[0])-1:
+                matrix[i][j].add_neighbor(matrix[i-1][j+1])
+            if j > 0:
+                matrix[i][j].add_neighbor(matrix[i-1][j-1])
         if i == len(matrix)-1:
             if j < len(matrix[0])-1:
                 matrix[i][j].add_neighbor(matrix[i][j+1])
-                matrix[i][j].add_neighbor(matrix[i-1][j+1])
             if j > 0:
                 matrix[i][j].add_neighbor(matrix[i][j-1])
-                matrix[i][j].add_neighbor(matrix[i-1][j-1])
 
-print()
-for octopus in matrix[1]:
-    print()
-    for octi in octopus.neighbors:
-        print(octi.energy_level, end= " ")
-print()
+
+#print()
+#for octopus in matrix[4]:
+#    print([octi.energy_level for octi in octopus.neighbors])
+#print()
 
 # create function to simulate one day
 
-# 1 - for a count of 100 days increase energy level of all octopuses
+def simulate_day(matrix):
+    for row in matrix:
+        for octopus in row:
+            octopus.increase_energy_level()
+    return matrix
+
+# 1 - for a count of x days increase energy level of all octopuses
+
+after_day_1 = simulate_day(matrix)
+
+for row in after_day_1:
+    print()
+    for octopus in row:
+        print(octopus.energy_level, end=" ")
+
+
+
 # 2 - after each day reset the energy level of the octopuses that flashed in the last step
 
 
