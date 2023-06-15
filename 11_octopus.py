@@ -29,3 +29,18 @@ print()
 for row in positions_in_matrix:
     print(row)
 print()
+
+
+# create octopus class
+
+
+### with method to increase energy
+
+### with method to flash
+
+
+# create function to simulate one day
+
+# create function to mark flashed octopusses (so as not to increase them due to neighboring flashes)
+
+# create function to find neighboring octopusses in matrix (in order to increase their count)
