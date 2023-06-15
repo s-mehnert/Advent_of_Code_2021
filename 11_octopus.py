@@ -18,6 +18,7 @@ class Octopus:
     def __init__(self, energy_level):
         self.energy_level = energy_level
         self.neighbors = list()
+        self.flash_count = 0
     
     ### with method to increase energy
     def increase_energy_level(self):
@@ -29,8 +30,8 @@ class Octopus:
 
     ### with method to flash
     def flash(self):
-        print("Octopus flashing ...")
         self.energy_level = "*"
+        self.flash_count += 1
         if self.neighbors:
             for octopus in self.neighbors:
                 octopus.increase_energy_level()
@@ -48,7 +49,7 @@ class Octopus:
 
 matrix = [[Octopus(int(octopus)) for octopus in line] for line in import_input_data]
 
-print()
+print("\nStart status:")
 for row in matrix:
     print()
     for octopus in row:
@@ -98,24 +99,25 @@ def simulate_day(matrix):
             octopus.reset_energy_level()
     return matrix
 
-# 1 - for a count of x days increase energy level of all octopuses
-
+# for a count of x days increase energy level of all octopuses
 
 list_of_days = list()
-for i in range(1):
-    new_status = simulate_day(matrix)
-    list_of_days.append(new_status)
+for i in range(100):
+    simulate_day(matrix)
 
+print("\nEnd status:")
 for row in matrix:
     print()
     for octopus in row:
         print(octopus.energy_level, end=" ")
+print()
 
+# count how many times octopuses have flashed
 
+total_flash_count = 0
 
-# 2 - after each day reset the energy level of the octopuses that flashed in the last step
+for row in matrix:
+    for octopus in row:
+        total_flash_count += octopus.flash_count
 
-
-# create function to mark flashed octopusses (so as not to increase them due to neighboring flashes)
-
-# create function to find neighboring octopusses in matrix (in order to increase their count)
+print("\nTotal of flashes:", total_flash_count)
