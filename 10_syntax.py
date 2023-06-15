@@ -35,7 +35,7 @@ for line in import_input_data:
     errors_found.append(check_for_corrupted_lines(line))
 
 final_errors = [error for error in errors_found if error]
-print("\nList of errors found:", final_errors)
+print("\nNumber of errors found:", len(final_errors))
 
 # count syntax errors
 
@@ -83,9 +83,7 @@ for line in import_input_data:
     if status:
         incomplete_lines.append(status)
 
-print()
-for line in incomplete_lines:
-    print(line)
+print("\nNumber of incomplete lines found:", len(incomplete_lines))
 
 # autocomplete lines
 
@@ -105,9 +103,7 @@ for line in incomplete_lines:
     completion_line = autocomplete_line(line)
     completion_lines.append(completion_line)
 
-print()
-for line in completion_lines:
-    print(line)
+print("\nCompletion lines have been created.")
 
 # create function to calculate autocomplete score
 
@@ -125,9 +121,12 @@ score_list = list()
 for line in completion_lines:
     score_list.append(calculate_autocomplete_score(line))
 
-print()
-for score in score_list:
-    print(score)
+print("\nThe scores for the completion lines have been calculated.")
 
 # find the middle score
 
+score_list.sort()
+middle_score = score_list[len(score_list)//2]
+
+print("\nThe middle score is:", middle_score)
+print()
