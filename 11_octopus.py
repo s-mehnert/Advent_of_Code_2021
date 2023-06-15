@@ -36,6 +36,7 @@ print()
 class Octopus:
     def __init__(self, energy_level):
         self.energy_level = energy_level
+        self.neighbors = list()
     
     ### with method to increase energy
     def increase_energy_level(self):
@@ -49,11 +50,19 @@ class Octopus:
     def flash(self):
         print("Octopus flashing ...")
         self.energy_level = "*"
+        if self.neighbors:
+            for octopus in self.neighbors:
+                octopus.increase_energy_level()
     
     ### with method to reset energy level to zero
     def reset_energy_level(self):
         self.energy_level = 0
+    
+    ### with method to add neighbors
+    def add_neighbor(self, octopus):
+        self.neighbors.append(octopus)
 
+# fill grid with octopuses
 
 # create function to simulate one day
 
