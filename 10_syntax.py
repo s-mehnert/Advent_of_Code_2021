@@ -87,7 +87,7 @@ print()
 for line in incomplete_lines:
     print(line)
 
-# create function to complete lines
+# autocomplete lines
 
 counterparts = {"(": ")", "[": "]", "{": "}", "<": ">"}
 
@@ -100,12 +100,34 @@ def autocomplete_line(incomplete_line):
         end_of_line.append(right_half)
     return end_of_line
 
+completion_lines = list()
+for line in incomplete_lines:
+    completion_line = autocomplete_line(line)
+    completion_lines.append(completion_line)
+
 print()
-print(autocomplete_line(incomplete_lines[0]))
-
-
-    
+for line in completion_lines:
+    print(line)
 
 # create function to calculate autocomplete score
 
-# find median score
+autocomplete_scores = {")": 1, "]": 2, "}": 3, ">": 4}
+
+def calculate_autocomplete_score(completion_line):
+    score = 0
+    for char in completion_line:
+        score *= 5
+        score += autocomplete_scores[char]
+    return score
+
+score_list = list()
+
+for line in completion_lines:
+    score_list.append(calculate_autocomplete_score(line))
+
+print()
+for score in score_list:
+    print(score)
+
+# find the middle score
+
