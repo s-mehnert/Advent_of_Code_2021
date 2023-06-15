@@ -59,4 +59,6 @@ for key, value in count_dict.items():
 print("\nTotal syntax error score:", total_syntax_error_score)
 
     
-# Next: test with real data
+#****************** Part 2 *****
+
+
