@@ -35,5 +35,29 @@ errors_found = list()
 for line in import_input_data:
     errors_found.append(check_for_corrupted_lines(line))
 
-print(errors_found)
+final_errors = [error for error in errors_found if error]
+print(final_errors)
+
+# count syntax errors
+
+count_dict = {")": 0, "]": 0, "}": 0, ">": 0}
+
+for error in final_errors:
+        count_dict[error] = final_errors.count(error)
+
+print(count_dict)
+
+# find score
+
+scores = {")": 3, "]": 57, "}": 1197, ">": 25137}
+
+total_syntax_error_score = 0
+
+for key, value in count_dict.items():
+    if value > 0:
+        total_syntax_error_score += value * scores[key]
+
+print()
+print("Total syntax error score:", total_syntax_error_score)
+
     
