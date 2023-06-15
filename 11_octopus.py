@@ -1,5 +1,5 @@
 #***** ADVENT OF CODE 2021 *****
-#************ DAY 11 ************
+#************ DAY 11 ***********
 #****************** Part 1 *****
 
 
@@ -40,6 +40,8 @@ class Octopus:
     def reset_energy_level(self):
         if self.energy_level == "*":
             self.energy_level = 0
+            return 1
+        return 0
     
     ### with method to add neighbors
     def add_neighbor(self, octopus):
@@ -91,19 +93,32 @@ for i in range(len(matrix)):
 # create function to simulate one day
 
 def simulate_day(matrix):
+    flash_count = 0
     for row in matrix:
         for octopus in row:
             octopus.increase_energy_level()
     for row in matrix:
         for octopus in row:
-            octopus.reset_energy_level()
-    return matrix
+            flash_count += octopus.reset_energy_level()
+    if flash_count == len(matrix) * len(matrix[0]):
+        return True
+    return False
 
 # for a count of x days increase energy level of all octopuses
 
-list_of_days = list()
-for i in range(100):
-    simulate_day(matrix)
+
+#****************** Part 2 *****
+
+# detect first synchronized flash
+
+
+stop_day = 0
+for i in range(1000):
+    synchronized = simulate_day(matrix)
+    if synchronized:
+        stop_day = i + 1
+        break
+        
 
 print("\nEnd status:")
 for row in matrix:
@@ -121,3 +136,5 @@ for row in matrix:
         total_flash_count += octopus.flash_count
 
 print("\nTotal of flashes:", total_flash_count)
+
+print(f"\nThe first synchronized flash occurs after {stop_day} days.\n")
