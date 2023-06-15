@@ -11,25 +11,6 @@ with open("11_octopus_input.txt") as input:
     for line in input.readlines():
         import_input_data.append(line.strip("\n"))
 
-print(import_input_data)
-for line in import_input_data:
-    print(line)
-
-
-matrix = [[int(octopus) for octopus in line] for line in import_input_data]
-
-print()
-for row in matrix:
-    print(row)
-print()
-
-positions_in_matrix = [[(row, col) for col in range(len(matrix[0]))] for row in range(len(matrix))]
-
-print()
-for row in positions_in_matrix:
-    print(row)
-print()
-
 
 # create octopus class
 
@@ -64,7 +45,26 @@ class Octopus:
 
 # fill grid with octopuses
 
+matrix = [[Octopus(int(octopus)) for octopus in line] for line in import_input_data]
+
+print()
+for row in matrix:
+    print()
+    for octopus in row:
+        print(octopus.energy_level, end= " ")
+print()
+
+positions_in_matrix = [[(row, col) for col in range(len(matrix[0]))] for row in range(len(matrix))]
+
+# establish neighboring relationships
+
+
+
 # create function to simulate one day
+
+# 1 - for a count of 100 days increase energy level of all octopuses
+# 2 - after each day reset the energy level of the octopuses that flashed in the last step
+
 
 # create function to mark flashed octopusses (so as not to increase them due to neighboring flashes)
 
