@@ -33,10 +33,26 @@ print()
 
 # create octopus class
 
+class Octopus:
+    def __init__(self, energy_level):
+        self.energy_level = energy_level
+    
+    ### with method to increase energy
+    def increase_energy_level(self):
+        if self.energy_level != "*":
+            if self.energy_level < 9:
+                self.energy_level += 1
+            else:
+                self.flash()
 
-### with method to increase energy
-
-### with method to flash
+    ### with method to flash
+    def flash(self):
+        print("Octopus flashing ...")
+        self.energy_level = "*"
+    
+    ### with method to reset energy level to zero
+    def reset_energy_level(self):
+        self.energy_level = 0
 
 
 # create function to simulate one day
