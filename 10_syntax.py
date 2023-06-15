@@ -62,3 +62,33 @@ print("\nTotal syntax error score:", total_syntax_error_score)
 #****************** Part 2 *****
 
 
+# filter out incomplete lines
+
+def return_if_incomplete(chunk_list):
+    check_stack = list()
+    for char in chunk_list:
+        if char in opening_chunk:
+            check_stack.append(char)
+        elif check_stack[-1] + char in pairs:
+            check_stack.pop()
+        else:
+            return
+    if check_stack:
+        return check_stack
+    
+incomplete_lines = list()
+
+for line in import_input_data:
+    status = return_if_incomplete(line)
+    if status:
+        incomplete_lines.append(status)
+
+print()
+for line in incomplete_lines:
+    print(line)
+
+# create function to complete lines
+
+# create function to calculate autocomplete score
+
+# find median score
