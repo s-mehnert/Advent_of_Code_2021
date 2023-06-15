@@ -58,7 +58,30 @@ positions_in_matrix = [[(row, col) for col in range(len(matrix[0]))] for row in 
 
 # establish neighboring relationships
 
+for i in range(len(matrix)):
+    for j in range(len(matrix[0])):
+        if i < len(matrix)-1:
+            matrix[i][j].add_neighbor(matrix[i+1][j])
+            if j < len(matrix[0])-1:
+                matrix[i][j].add_neighbor(matrix[i][j+1])
+            if j > 0:
+                matrix[i][j].add_neighbor(matrix[i][j-1])
+        if i > 0:
+            matrix[i][j].add_neighbor(matrix[i-1][j])
+        if i == len(matrix)-1:
+            if j < len(matrix[0])-1:
+                matrix[i][j].add_neighbor(matrix[i][j+1])
+            if j > 0:
+                matrix[i][j].add_neighbor(matrix[i][j-1])
 
+# add diagonal neighbors next
+
+print()
+for octopus in matrix[0]:
+    print()
+    for octi in octopus.neighbors:
+        print(octi.energy_level, end= " ")
+print()
 
 # create function to simulate one day
 
