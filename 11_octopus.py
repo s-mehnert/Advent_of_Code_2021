@@ -37,7 +37,8 @@ class Octopus:
     
     ### with method to reset energy level to zero
     def reset_energy_level(self):
-        self.energy_level = 0
+        if self.energy_level == "*":
+            self.energy_level = 0
     
     ### with method to add neighbors
     def add_neighbor(self, octopus):
@@ -92,13 +93,20 @@ def simulate_day(matrix):
     for row in matrix:
         for octopus in row:
             octopus.increase_energy_level()
+    for row in matrix:
+        for octopus in row:
+            octopus.reset_energy_level()
     return matrix
 
 # 1 - for a count of x days increase energy level of all octopuses
 
-after_day_1 = simulate_day(matrix)
 
-for row in after_day_1:
+list_of_days = list()
+for i in range(1):
+    new_status = simulate_day(matrix)
+    list_of_days.append(new_status)
+
+for row in matrix:
     print()
     for octopus in row:
         print(octopus.energy_level, end=" ")
