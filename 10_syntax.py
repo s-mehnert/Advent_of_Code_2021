@@ -89,6 +89,23 @@ for line in incomplete_lines:
 
 # create function to complete lines
 
+counterparts = {"(": ")", "[": "]", "{": "}", "<": ">"}
+
+def autocomplete_line(incomplete_line):
+    repair_stack = incomplete_line[:]
+    end_of_line = list()
+    while repair_stack:
+        left_half = repair_stack.pop()
+        right_half = counterparts[left_half]
+        end_of_line.append(right_half)
+    return end_of_line
+
+print()
+print(autocomplete_line(incomplete_lines[0]))
+
+
+    
+
 # create function to calculate autocomplete score
 
 # find median score
