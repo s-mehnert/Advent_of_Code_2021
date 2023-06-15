@@ -18,7 +18,7 @@ for row in matrix:
     print(row)
 print()
 
-positions_in_matrix = [[(row, col) for col in range(10)] for row in range(5)]
+positions_in_matrix = [[(row, col) for col in range(len(matrix[0]))] for row in range(len(matrix))]
 
 print()
 for row in positions_in_matrix:
@@ -29,10 +29,11 @@ print()
 
 potential_low_points = list()
 higher_points = list()
+low_points = list()
 
 # checking rows
 
-for i in range(5):
+for i in range(len(matrix)):
     potential_low_points_row = list()
     higher_points_row = list()
     for j in range(1, len(matrix[0]), 2):
@@ -58,8 +59,6 @@ for i in range(5):
 
 # checking potential low points against columns
 
-low_points = list()
-
 for plp in potential_low_points:
     i, j = plp
     if i < len(matrix)-1:
@@ -76,8 +75,29 @@ for plp in potential_low_points:
 print()
 print(low_points)
 
-            
+# calculate risk level
 
+
+risk_level_points = [matrix[i][j] for (i, j) in low_points]
+risk_level = sum(risk_level_points) + len(risk_level_points)
+print(risk_level_points)
+print(len(risk_level_points))
+print(len(low_points))
+
+check_sum = 0
+for point in risk_level_points:
+    check_sum += point+1
+
+print("Check sum:", check_sum, "plus 1 higher:", check_sum + len(low_points))
+
+
+
+print()
+print("The cumulated risk level of all low points is", risk_level)
+
+            
+print("".join(import_input_data).count("0"))
+print(risk_level_points.count(0))
     
 
 
