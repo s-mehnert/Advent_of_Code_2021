@@ -15,19 +15,25 @@ opening_chunk = ["(", "[", "{", "<"]
 closing_chunk = [")", "]", "}", ">"]
 pairs = ["()", "[]", "{}", "<>"]
 
-errors_found = list()
-
 # simulate stack
 
-check_stack = list()
+def check_for_corrupted_lines(chunk_list):
+    check_stack = list()
+    for char in chunk_list:
+        if char in opening_chunk:
+            check_stack.append(char)
+        elif check_stack[-1] + char in pairs:
+            check_stack.pop()
+        else:
+            print("Line corrupted. Wrong closing bracket found:", char)
+            return char
+    
+# find corrupted lines
 
-for char in import_input_data[0]:
-    if char in opening_chunk:
-        check_stack.append(char)
-    elif check_stack[-1] + char in pairs:
-        check_stack.pop()
-    else:
-        print("Line corrupted. Wrong closing bracket found:", char)
-        errors_found.append(char)
+errors_found = list()
 
-print(check_stack)
+for line in import_input_data:
+    errors_found.append(check_for_corrupted_lines(line))
+
+print(errors_found)
+    
