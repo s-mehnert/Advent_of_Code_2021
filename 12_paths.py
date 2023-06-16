@@ -11,7 +11,6 @@ with open("12_paths_input.txt") as input:
     for line in input.readlines():
         import_input_data.append(line.strip("\n").split("-"))
 
-print(import_input_data)
 print()
 for line in import_input_data:
     print(line)
@@ -48,19 +47,16 @@ class Graph:
         path = [from_vertex]
         current_vertex = from_vertex
         next_caves = self.graph_dict[from_vertex].get_edges()
-        caves_visited = [from_vertex]
+
         while path:
             count = 0
             while next_caves:
-                print("Count:", count)
                 count += 1
                 print("Current vertex:", current_vertex)
                 print("Path:", path)
-                print("Caves visited:", caves_visited)
                 print("Next caves:", next_caves)
+                #print("Next caves:", next_caves)
                 current_vertex = next_caves.pop()
-                caves_visited.append(current_vertex)
-
                 if current_vertex == from_vertex or current_vertex == path[-1]:
                     path.pop()
                     remove = True
@@ -72,7 +68,7 @@ class Graph:
                     continue
 
                 if current_vertex in path:
-                    if current_vertex.islower() or current_vertex == path[-1]:
+                    if current_vertex.islower():
                         remove = True
                         for edge in self.graph_dict[path[-1]].get_edges():
                             if edge not in path:
@@ -92,12 +88,19 @@ class Graph:
                         if edge not in path:
                             remove = False
                     if remove:
-                        print("pop")
                         path.pop()
                     continue
 
-                next_caves += self.graph_dict[current_vertex].get_edges()
-                
+                append = False
+                for edge in self.graph_dict[path[-1]].get_edges():
+                    if edge not in path or edge.isupper():
+                        append = True
+                if append:
+                    to_be_visited = [edge for edge in self.graph_dict[current_vertex].get_edges() if (edge not in path or edge.isupper()) or edge == from_vertex]
+                    next_caves += to_be_visited
+                else: 
+                    path.pop()
+
             return all_paths
 
 
@@ -148,8 +151,17 @@ for cave in cave_system.graph_dict:
 test_paths = cave_system.find_all_paths("start", "end")
 
 print()
+print(len(test_paths), "paths found:\n")
 for path in test_paths:
-    print(path)
+   print(path)
 
 
+# part_paths_from_start = list()
+# part_paths_to_end = list()
+# for cave in cave_system.graph_dict:
+#     if cave.isupper():
+#         part_paths_from_start.append(cave_system.find_all_paths("start", cave))
+#         part_paths_to_end.append(cave_system.find_all_paths(cave, "end"))
 
+# print(part_paths_from_start)
+# print(part_paths_to_end)
