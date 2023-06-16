@@ -41,13 +41,67 @@ class Graph:
         self.graph_dict[from_vertex.value].add_edge(to_vertex)
         self.graph_dict[to_vertex.value].add_edge(from_vertex)
     
-    # find all paths method
+    # find all paths method --> fix this
     
     def find_all_paths(self, from_vertex, to_vertex):
-        pass
+        all_paths = list()
+        path = [from_vertex]
+        current_vertex = from_vertex
+        next_caves = self.graph_dict[from_vertex].get_edges()
+        caves_visited = [from_vertex]
+        while path:
+            count = 0
+            while next_caves:
+                print("Count:", count)
+                count += 1
+                print("Current vertex:", current_vertex)
+                print("Path:", path)
+                print("Caves visited:", caves_visited)
+                print("Next caves:", next_caves)
+                current_vertex = next_caves.pop()
+                caves_visited.append(current_vertex)
+
+                if current_vertex == from_vertex or current_vertex == path[-1]:
+                    path.pop()
+                    remove = True
+                    for edge in self.graph_dict[path[-1]].get_edges():
+                        if edge not in path:
+                            remove = False
+                    if remove:
+                        path.pop()
+                    continue
+
+                if current_vertex in path:
+                    if current_vertex.islower() or current_vertex == path[-1]:
+                        remove = True
+                        for edge in self.graph_dict[path[-1]].get_edges():
+                            if edge not in path:
+                                remove = False
+                        if remove:
+                            path.pop()
+                        continue
+                
+                path.append(current_vertex)
+
+                if current_vertex == to_vertex:
+                    all_paths.append([path[:]])
+                    print("Found path:", path)
+                    path.pop()
+                    remove = True
+                    for edge in self.graph_dict[path[-1]].get_edges():
+                        if edge not in path:
+                            remove = False
+                    if remove:
+                        print("pop")
+                        path.pop()
+                    continue
+
+                next_caves += self.graph_dict[current_vertex].get_edges()
+                
+            return all_paths
 
 
-# import input data into graph --> continue here
+# import input data into graph
 
 caves = list()
 
@@ -61,8 +115,7 @@ connections = {cave : [] for cave in caves}
 for entry in import_input_data:
     connections[entry[0]].append(entry[1])
     connections[entry[1]].append(entry[0])
-
-            
+    
 print()
 print(caves)
 print(connections)
@@ -90,9 +143,13 @@ for cave in cave_system.graph_dict:
         print("  --> ", edge)
 
 
+# Testing
 
+test_paths = cave_system.find_all_paths("start", "end")
 
-# implement algorithm to find all paths from start to end
+print()
+for path in test_paths:
+    print(path)
 
 
 
