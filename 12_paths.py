@@ -40,6 +40,27 @@ class Graph:
         self.graph_dict[from_vertex.value].add_edge(to_vertex)
         self.graph_dict[to_vertex.value].add_edge(from_vertex)
     
+    def count_possible_paths(self, from_vertex, to_vertex): # fix this
+        counter = 1
+        multiplier = 0
+        for vertex in self.graph_dict:
+            print(vertex)
+            if vertex != to_vertex:
+                print("Not end")    
+                if len(self.graph_dict[vertex].get_edges()) == 1:
+                    print("only one")
+                    if self.graph_dict[vertex].get_edges()[0].islower():
+                        print("oh, oh, minus")
+                        multiplier -= 1
+                else:
+                    for edge in self.graph_dict[vertex].get_edges():
+                        print(" -->", edge)
+                        if edge != from_vertex:
+                            print("not start")
+                            multiplier += 1
+        return counter * multiplier * 2
+
+
     # find all paths method --> fix this
     
     def find_all_paths(self, from_vertex, to_vertex):
@@ -154,6 +175,9 @@ print()
 print(len(test_paths), "paths found:\n")
 for path in test_paths:
    print(path)
+
+possible_path_count = cave_system.count_possible_paths("start", "end")
+print(f"\nPossible path count:", possible_path_count)
 
 
 # part_paths_from_start = list()
