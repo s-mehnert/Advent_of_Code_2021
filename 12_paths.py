@@ -20,7 +20,7 @@ for line in import_input_data:
 # create graph with caves as vertices and edges for the connections between them
 
 class Vertex:
-    def __init__(value):
+    def __init__(self, value):
         self.value = value
         self.edges = list()
     
@@ -32,7 +32,7 @@ class Vertex:
     
 class Graph: 
     def __init__(self):
-        self.graph = dict()
+        self.graph_dict = dict()
     
     def add_vertex(self, vertex):
         self.graph_dict[vertex.value] = vertex
@@ -43,28 +43,54 @@ class Graph:
     
     # find all paths method
     
-    def find_all_paths(self):
+    def find_all_paths(self, from_vertex, to_vertex):
         pass
 
 
-# import input data into graph
+# import input data into graph --> continue here
 
 caves = list()
-connections = dict()
 
 for entry in import_input_data:
     for cave in entry:
         if cave not in caves:
             caves.append(cave)
-    if entry[0] not in connections:
-        connections[entry[0]] = [entry[1]]
-    else:
-        if entry[1] not in connections[entry[0]]:
-                connections[entry[0]].append(entry[1])
+
+connections = {cave : [] for cave in caves}
+
+for entry in import_input_data:
+    connections[entry[0]].append(entry[1])
+    connections[entry[1]].append(entry[0])
+
             
 print()
 print(caves)
 print(connections)
+
+cave_system = Graph()
+
+for cave in caves:
+    vertex = Vertex(cave)
+    cave_system.add_vertex(vertex)
+
+for cave in caves:
+    vertex = Vertex(cave)
+    cave_system.add_vertex(vertex)
+    for key, value in connections.items():
+        if key == cave:
+            for connection in value:
+                vertex.add_edge(connection)
+
+print()
+print(cave_system.graph_dict)
+print()
+for cave in cave_system.graph_dict:
+    print("\nCave:", cave)
+    for edge in cave_system.graph_dict[cave].edges:
+        print("  --> ", edge)
+
+
+
 
 # implement algorithm to find all paths from start to end
 
