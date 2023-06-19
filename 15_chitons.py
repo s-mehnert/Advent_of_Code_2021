@@ -55,9 +55,9 @@ for i in range(len(cave_map)):
     for j in range(len(cave_map[0])):
         test_graph.add_vertex(Vertex((i, j), cave_map[i][j]))
 
-print()
-for key, value in test_graph.graph_dict.items():
-    print(key, " -> ", value.risk_level)
+# print()
+# for key, value in test_graph.graph_dict.items():
+#     print(key, " -> ", value.risk_level)
 
 # add edges
 
@@ -84,9 +84,9 @@ for i in range(len(cave_map)):
                 to_vertex_left = test_graph.graph_dict[(i, j-1)]
                 test_graph.add_edge(from_vertex, to_vertex_left, to_vertex_left.risk_level)
 
-print()
-for key, value in test_graph.graph_dict.items():
-    print(key, " -> ", value.get_edges())   
+# print()
+# for key, value in test_graph.graph_dict.items():
+#     print(key, " -> ", value.get_edges())   
 
 
 # find lowest cost path through graph
@@ -119,5 +119,4 @@ def dijkstras(graph, start):
         
   return distances
 
-print("\nThe path with the total lowest risk has a risk level of", dijkstras(search_graph, (0, 0))[(9, 9)])
-
+print("\nThe path with the total lowest risk has a risk level of", dijkstras(search_graph, (0, 0))[(len(cave_map)-1, len(cave_map[0])-1)])
