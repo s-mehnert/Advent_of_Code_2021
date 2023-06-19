@@ -20,5 +20,72 @@ for row in cave_map:
 
 # create a graph with risk level as weighted edges
 
+class Vertex:
+    def __init__(self, value, risk_level=0):
+        self.value = value
+        self.risk_level = risk_level
+        self.edges = dict()
+    
+    def get_edges(self):
+        return list(self.edges.keys())
+    
+    def add_edge(self, vertex, weight=0):
+        self.edges[vertex] = weight
+    
+    def get_edge_weight(self, edge):
+        return self.edges[edge]
+
+class Graph:
+    def __init__(self):
+        self.graph_dict = dict()
+    
+    def add_vertex(self, vertex):
+        self.graph_dict[vertex.value] = vertex
+
+    def add_edge(self, from_vertex, to_vertex, risk_level = 0):
+        self.graph_dict[from_vertex.value].add_edge(to_vertex.value, risk_level)
+
+
+# populate graph with values
+
+test_graph = Graph()
+
+for i in range(len(cave_map)):
+    for j in range(len(cave_map[0])):
+        test_graph.add_vertex(Vertex((i, j), cave_map[i][j]))
+
+print()
+for key, value in test_graph.graph_dict.items():
+    print(key, " -> ", value.risk_level)
+
+# add edges
+
+for i in range(len(cave_map)):
+    for j in range(len(cave_map[0])):
+        from_vertex = test_graph.graph_dict[(i, j)]
+        if i < len(cave_map)-1:
+            to_vertex_down = test_graph.graph_dict[(i+1, j)]
+            test_graph.add_edge(from_vertex, to_vertex_down, to_vertex_down.risk_level)
+            if j < len(cave_map[0])-1:
+                to_vertex_right = test_graph.graph_dict[(i, j+1)]
+                test_graph.add_edge(from_vertex, to_vertex_right, to_vertex_right.risk_level)
+            if j > 0:
+                to_vertex_left = test_graph.graph_dict[(i, j-1)]
+                test_graph.add_edge(from_vertex, to_vertex_left, to_vertex_left.risk_level)
+        if i > 0:
+            to_vertex_up = test_graph.graph_dict[(i-1, j)]
+            test_graph.add_edge(from_vertex, to_vertex_up, to_vertex_up.risk_level)
+        if i == len(cave_map)-1:
+            if j < len(cave_map[0])-1:
+                to_vertex_right = test_graph.graph_dict[(i, j+1)]
+                test_graph.add_edge(from_vertex, to_vertex_right, to_vertex_right.risk_level)
+            if j > 0:
+                to_vertex_left = test_graph.graph_dict[(i, j-1)]
+                test_graph.add_edge(from_vertex, to_vertex_left, to_vertex_left.risk_level)
+
+print()
+for key, value in test_graph.graph_dict.items():
+    print(key, " -> ", value.get_edges())   
+
 
 # find lowest cost path through graph
