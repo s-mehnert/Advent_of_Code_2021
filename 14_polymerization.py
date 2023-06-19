@@ -27,10 +27,31 @@ for pair, rule in rules_dict.items():
 
 # create polymer class
 
+class Polymer:
+    def __init__(self, template):
+        self.template = template
+        self.growth = template[:]
+        
 # create method to automatically insert values between pairs simultaneously
+
+    def grow(self, rules_dict, num_steps):
+        for time in range(num_steps):
+            insertions = self.growth[0]
+            for i in range(len(self.growth)-1):
+                insertions += (rules_dict[self.growth[i]+self.growth[i+1]] + self.growth[i+1])
+            self.growth = insertions
 
 # create method to calculate desired result taking in number of steps as parameter
 
 
+# Testing
 
+test_polymer = Polymer(polymer_template)
 
+print()
+print(test_polymer.growth)
+
+test_polymer.grow(rules_dict, 10)
+
+print()
+print(test_polymer.growth)
