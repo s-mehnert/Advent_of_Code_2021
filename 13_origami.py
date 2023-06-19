@@ -60,11 +60,28 @@ class Grid:
                     print(" . ", end="")
 
 # create class method fold up
+    def fold_up(self, y):
+        print("Folding up at row:", y)
+        print(self.dots)
+        copied_dots = list()
+        dots_to_remove = list()
+        for dot in self.dots:
+            if dot[1] > y:
+                print(dot)
+                copied_dot = (dot[0], y - (dot[1]-y))
+                print("Copying dot:", copied_dot)
+                copied_dots.append(copied_dot)
+                dots_to_remove.append(dot)
+        for new_dot in copied_dots:
+            if new_dot not in self.dots:
+                self.dots.append(new_dot)
+        for old_dot in dots_to_remove:
+            self.dots.remove(old_dot)
 
 # create class method fold left
 
 
-# Testing
+# populate grid with dots from imported data
 
 test_grid = Grid(15, 30)
 
@@ -75,5 +92,7 @@ for position in dot_distribution:
     test_grid.add_dot(*position)
 test_grid.print_grid()
 
+test_grid.fold_up(7)
+test_grid.print_grid()
 
 # create new grid half the size with merged dots
