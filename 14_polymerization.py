@@ -14,7 +14,7 @@ with open("14_polymerization_rules.txt") as rules:
 print()
 print(import_input_data)
 
-polymer_template = "NNCB"
+polymer_template = "VOKKVSKKPSBVOOKVCFOV"
 
 # create pair insertion dictionary
 
@@ -43,6 +43,12 @@ class Polymer:
 
 # create method to calculate desired result taking in number of steps as parameter
 
+    def calculate_result(self):
+        count_dict = dict()
+        for element in set(self.growth):
+            count_dict[element] = self.growth.count(element)
+        return max(count_dict.values()) - min(count_dict.values())
+        
 
 # Testing
 
@@ -51,7 +57,7 @@ test_polymer = Polymer(polymer_template)
 print()
 print(test_polymer.growth)
 
-test_polymer.grow(rules_dict, 10)
+test_polymer.grow(rules_dict, 40)
 
 print()
-print(test_polymer.growth)
+print(test_polymer.calculate_result())
