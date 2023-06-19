@@ -36,3 +36,44 @@ print("\nInstructions:")
 for line in decoded_instructions:
     print(line)
 
+
+# create class Grid with positions
+
+class Grid:
+    def __init__(self, num_cols, num_rows):
+        self.num_cols = num_cols
+        self.num_rows = num_rows
+        self.matrix = [[(col, row) for col in range(num_cols)] for row in range(num_rows)]
+        self.dots = list()
+    
+    def add_dot(self, x, y):
+        print("Adding dot in position:", (x, y))
+        self.dots.append((x, y))
+    
+    def print_grid(self):
+        for row in range(self.num_rows):
+            print()
+            for col in range(self.num_cols):
+                if self.matrix[row][col] in self.dots:
+                    print(" # ", end="")
+                else:
+                    print(" . ", end="")
+
+
+# create class method fold up
+
+# create class method fold left
+
+
+# Testing
+
+test_grid = Grid(15, 30)
+
+for row in test_grid.matrix:
+    print(row)
+
+test_grid.add_dot(*dot_distribution[0])
+test_grid.print_grid()
+
+
+# create new grid half the size with merged dots
