@@ -62,14 +62,11 @@ class Grid:
 # create class method fold up
     def fold_up(self, y):
         print("Folding up at row:", y)
-        print(self.dots)
         copied_dots = list()
         dots_to_remove = list()
         for dot in self.dots:
             if dot[1] > y:
-                print(dot)
                 copied_dot = (dot[0], y - (dot[1]-y))
-                print("Copying dot:", copied_dot)
                 copied_dots.append(copied_dot)
                 dots_to_remove.append(dot)
         for new_dot in copied_dots:
@@ -82,14 +79,11 @@ class Grid:
 
     def fold_left(self, x):
         print("Folding left at column:", x)
-        print(self.dots)
         copied_dots = list()
         dots_to_remove = list()
         for dot in self.dots:
             if dot[0] > x:
-                print(dot)
                 copied_dot = (x -(dot[0]-x), dot[1])
-                print("Copying dot:", copied_dot)
                 copied_dots.append(copied_dot)
                 dots_to_remove.append(dot)
         for new_dot in copied_dots:
@@ -100,14 +94,13 @@ class Grid:
 
 # populate grid with dots from imported data
 
-test_grid = Grid(15, 30)
-
-for row in test_grid.matrix:
-    print(row)
+test_grid = Grid(100, 100)
 
 for position in dot_distribution:
     test_grid.add_dot(*position)
-test_grid.print_grid()
+print("\nBefore first fold:", len(test_grid.dots))
+
+# pass instructions to grid
 
 for instr in decoded_instructions:
     if instr[0] == "y":
@@ -120,5 +113,3 @@ for instr in decoded_instructions:
 test_grid.print_grid()
 
 print("\nNumber of dots left:", len(test_grid.dots))
-
-# create new grid half the size with merged dots
