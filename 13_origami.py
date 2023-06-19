@@ -80,6 +80,23 @@ class Grid:
 
 # create class method fold left
 
+    def fold_left(self, x):
+        print("Folding left at column:", x)
+        print(self.dots)
+        copied_dots = list()
+        dots_to_remove = list()
+        for dot in self.dots:
+            if dot[0] > x:
+                print(dot)
+                copied_dot = (x -(dot[0]-x), dot[1])
+                print("Copying dot:", copied_dot)
+                copied_dots.append(copied_dot)
+                dots_to_remove.append(dot)
+        for new_dot in copied_dots:
+            if new_dot not in self.dots:
+                self.dots.append(new_dot)
+        for old_dot in dots_to_remove:
+            self.dots.remove(old_dot)
 
 # populate grid with dots from imported data
 
@@ -92,7 +109,16 @@ for position in dot_distribution:
     test_grid.add_dot(*position)
 test_grid.print_grid()
 
-test_grid.fold_up(7)
+for instr in decoded_instructions:
+    if instr[0] == "y":
+        test_grid.fold_up(int(instr[1]))
+    elif instr[0] == "x":
+        test_grid.fold_left(int(instr[1]))
+    else:
+        print("Sorry, unknown instruction")
+
 test_grid.print_grid()
+
+print("\nNumber of dots left:", len(test_grid.dots))
 
 # create new grid half the size with merged dots
