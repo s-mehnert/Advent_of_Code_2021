@@ -59,7 +59,6 @@ class Grid:
                 else:
                     print(" . ", end="")
 
-
 # create class method fold up
 
 # create class method fold left
@@ -72,7 +71,8 @@ test_grid = Grid(15, 30)
 for row in test_grid.matrix:
     print(row)
 
-test_grid.add_dot(*dot_distribution[0])
+for position in dot_distribution:
+    test_grid.add_dot(*position)
 test_grid.print_grid()
 
 
