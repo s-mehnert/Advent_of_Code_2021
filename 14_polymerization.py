@@ -57,7 +57,10 @@ test_polymer = Polymer(polymer_template)
 print()
 print(test_polymer.growth)
 
-test_polymer.grow(rules_dict, 40)
+test_polymer.grow(rules_dict, 10)
+
+print()
+print(test_polymer.growth)
 
 print()
 print(test_polymer.calculate_result())
