@@ -2,6 +2,7 @@
 #************ DAY 15 ***********
 #****************** Part 1 *****
 
+from heapq import heappop, heappush
 
 # get input data
 
@@ -89,3 +90,34 @@ for key, value in test_graph.graph_dict.items():
 
 
 # find lowest cost path through graph
+
+search_graph = dict()
+
+for vertex in test_graph.graph_dict:
+    search_graph[vertex] = [(edge, test_graph.graph_dict[edge].risk_level) for edge in test_graph.graph_dict[vertex].get_edges()]
+
+print(search_graph)
+
+def dijkstras(graph, start):
+  distances = {}
+  
+  for vertex in graph:
+    distances[vertex] = 100
+    
+  distances[start] = 0
+  vertices_to_explore = [(0, start)]
+  
+  while vertices_to_explore:
+    current_distance, current_vertex = heappop(vertices_to_explore)
+    
+    for neighbor, edge_weight in graph[current_vertex]:
+      new_distance = current_distance + edge_weight
+      
+      if new_distance < distances[neighbor]:
+        distances[neighbor] = new_distance
+        heappush(vertices_to_explore, (new_distance, neighbor))
+        
+  return distances
+
+print("\nThe path with the total lowest risk has a risk level of", dijkstras(search_graph, (0, 0))[(9, 9)])
+
