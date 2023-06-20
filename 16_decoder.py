@@ -6,7 +6,9 @@
 # get input data
 
 hexadecimal_string_old1 = "D2FE28"
-hexadecimal_string = "38006F45291200"
+hexadecimal_string_old12 = "38006F45291200"
+hexadecimal_string = "EE00D40C823060"
+
 
 dec_dict = {
     "0" : "0000",
@@ -55,31 +57,45 @@ def decode_literal(rest_of_string):
         rest_of_string = rest_of_string[5:]
     return literal, rest_of_string
 
+def decode_subpackets(subpackets):
+    packets_decoded = list()
+    while subpackets:
+        packet_decoded, subpackets = decode_packet(subpackets)
+        packets_decoded.append(packet_decoded)
+    return packets_decoded
+
+def decode_subpackets_2(rest_of_string, num_of_packets):
+    packets_decoded = list()
+    while len(packets_decoded) < num_of_packets:
+        packet_decoded, rest_of_string = decode_packet(rest_of_string)
+        packets_decoded.append(packet_decoded)
+    return packets_decoded
+
 def decode_packet(binary_string):
     packet_list = list()
     version, type_id, rest_of_string = decode_header(binary_string)
-    packet_list.append(int(version, 2))
+    packet_list.append(version)
     length_type = None
     literal = ""
     subpackets = ""
     if type_id == "100":
         literal, rest_of_string = decode_literal(rest_of_string)
-        return packet_list
+        return packet_list, rest_of_string
     else: # all other types of packets are operator packets
         length_type = rest_of_string[0]
         if length_type == "0":
             length_in_bits = int(rest_of_string[1:16], 2)
             rest_of_string = rest_of_string[16:]
             subpackets = rest_of_string[:length_in_bits]
-            rest_of_string = rest_of_string[length_in_bits]
-            return packet_list + decode_packet(subpackets) # make it work for more than one subpackets (if first is literal)
+            rest_of_string = rest_of_string[length_in_bits:]
+            return packet_list + decode_subpackets(subpackets), rest_of_string # make it work for more than one subpackets (if first is literal)
         else:
-            num_of_packets = rest_of_string[1:12]
+            num_of_packets = int(rest_of_string[1:12], 2)
             rest_of_string = rest_of_string[12:]
             subpackets = rest_of_string
-            return packet_list + decode_packet(rest_of_string)
+            return packet_list + decode_subpackets_2(subpackets, num_of_packets), rest_of_string
         
-packet_list = decode_packet(binary_string)
+packet_list = decode_packet(binary_string)[0]
 
 print()
 print(packet_list)
