@@ -7,7 +7,7 @@
 
 hexadecimal_string_old1 = "D2FE28"
 hexadecimal_string_old12 = "38006F45291200"
-hexadecimal_string = "EE00D40C823060"
+hexadecimal_string = "8A004A801A8002F478"
 
 
 dec_dict = {
@@ -64,7 +64,7 @@ def decode_subpackets(subpackets):
         packets_decoded.append(packet_decoded)
     return packets_decoded
 
-def decode_subpackets_2(rest_of_string, num_of_packets):
+def decode_subpackets_2(rest_of_string, num_of_packets): # this one needs fixing all others are working
     packets_decoded = list()
     while len(packets_decoded) < num_of_packets:
         packet_decoded, rest_of_string = decode_packet(rest_of_string)
@@ -99,6 +99,24 @@ packet_list = decode_packet(binary_string)[0]
 
 print()
 print(packet_list)
+
+def flatten(lst):
+    flat_lst = list()
+    for item in lst:
+        if isinstance(item, list):
+            return flat_lst + flatten(item)
+        flat_lst.append(item)
+    return flat_lst
+
+
+result_lst = flatten(packet_list)
+
+result = 0
+for item in result_lst:
+    result += int(item, 2)
+
+print(result)
+
 
 # # decode the packets
 
