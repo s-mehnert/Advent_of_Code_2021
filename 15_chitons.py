@@ -120,6 +120,39 @@ def dijkstras(graph, start):
   return distances
 
 all_distances = dijkstras(search_graph, (0, 0))
-print(all_distances)
+#print(all_distances)
 
-print("\nThe path with the total lowest risk has a risk level of", all_distances[99, 99])
+print("\nThe path with the total lowest risk has a risk level of", all_distances[len(cave_map)-1, len(cave_map[0])-1])
+
+
+#****************** Part 2 *****
+
+# enlarge original map 5 times, increasing risk_levels by one
+
+# cave_map = [[int(pos) for pos in line] for line in import_input_data]
+
+print()
+for row in cave_map:
+    print(row)
+
+def enlarge_map_right(map, times):
+    new_map = [[int(pos) for pos in line] for line in import_input_data]
+    current_tile = map.copy()
+    for idx in range(times):
+        new_tile = current_tile[:]
+        for i in range(len(current_tile)):
+            for j in range(len(current_tile[-1])):
+                if current_tile[i][j] == 9:
+                    new_tile[i][j] = 0
+                else:
+                    new_tile[i][j] = current_tile[i][j]+1
+                new_map[i].append(new_tile[i][j])
+        current_tile = new_tile        
+    return new_map
+
+
+enlarged_map = enlarge_map_right(cave_map, 4)
+
+print()
+for row in enlarged_map:
+    print(row)
