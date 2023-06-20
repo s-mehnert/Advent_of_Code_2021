@@ -15,8 +15,8 @@ with open("15_chitons_input.txt") as input:
 cave_map = [[int(pos) for pos in line] for line in import_input_data]
 
 print()
-for row in cave_map:
-    print(row)
+# for row in cave_map:
+#     print(row)
 
 
 # create a graph with risk level as weighted edges
@@ -96,13 +96,13 @@ search_graph = dict()
 for vertex in test_graph.graph_dict:
     search_graph[vertex] = [(edge, test_graph.graph_dict[edge].risk_level) for edge in test_graph.graph_dict[vertex].get_edges()]
 
-print(search_graph)
+#print(search_graph)
 
 def dijkstras(graph, start):
   distances = {}
   
   for vertex in graph:
-    distances[vertex] = 100
+    distances[vertex] = 1000000
     
   distances[start] = 0
   vertices_to_explore = [(0, start)]
@@ -119,4 +119,7 @@ def dijkstras(graph, start):
         
   return distances
 
-print("\nThe path with the total lowest risk has a risk level of", dijkstras(search_graph, (0, 0))[(len(cave_map)-1, len(cave_map[0])-1)])
+all_distances = dijkstras(search_graph, (0, 0))
+print(all_distances)
+
+print("\nThe path with the total lowest risk has a risk level of", all_distances[99, 99])
